@@ -64,6 +64,5 @@ sync.ffs_db
 *.back
 *.old
 
-#Custom CSS Brands
-/media/templates/site/moko-cassiopeia/css/global/colors_custom_*.css
-/updates
+#Custom Config
+moko-copyright-touch.json
