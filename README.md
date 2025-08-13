@@ -22,6 +22,9 @@
   Supports multiple programming languages with appropriate comment styles.
   Default `@defgroup` tag is `Dolibarr` unless overridden.
 
+* **Header Templates**
+  Supports reusable header templates stored in a `templates` directory. These templates can be customized for different licenses, comment styles, or branding, and selected via JSON or CLI parameters.
+
 * **Shortcut-Friendly**
   Supports a `StartIn` parameter for running via desktop or terminal shortcuts.
 
@@ -48,9 +51,23 @@ This can be placed in the **script folder**, so it is used as a fallback for all
   "ProjectName": "MyProject",
   "Version": "1.0.0",
   "Years": "2023-2025",
-  "License": "GPL-3.0-or-later"
+  "License": "GPL-3.0-or-later",
+  "AdditionalInfo": false,
+  "WordWrap": 40,
+  "IncludeSubdirectories": true,
+  "FileTypes": [".php", ".js", ".css", ".html", ".ini", ".xml"],
+  "IgnorePatterns": ["node_modules", "vendor", "*.min.js", "*.min.css", "*.map", "moko-copyright-touch.json"],
+  "BackupBeforeModify": true,
+  "BackupLocation": "./.moko-copyright-touch-backups",
+  "HeaderTemplate": "HeaderTemplate.default.json",
+  "DefaultDefGroup": "Dolibarr",
+  "DefaultInGroup": "Template.moko-cassiopeia",
+  "RelativeFilePathInHeader": true,
+  "PromptForMissingValues": true
 }
 ```
+
+For a detailed explanation of each parameter, see [Default Configuration Reference](/docs/variables.md).
 
 ---
 
@@ -73,6 +90,12 @@ moko-copyright-touch <file-or-directory>
 moko-copyright-touch src/ --ProjectName "NewName" --License "MIT"
 ```
 
+**Using a specific header template:**
+
+```bash
+moko-copyright-touch src/ --Template "gpl-block"
+```
+
 ---
 
 ## 🧠 Behavior & Merge Logic
@@ -82,6 +105,7 @@ moko-copyright-touch src/ --ProjectName "NewName" --License "MIT"
 3. Merge: project values override script defaults.
 4. Apply CLI/shortcut overrides last.
 5. For any parameter still missing, prompt the user.
+6. If a template is specified, load it from the `templates` directory and apply it with the resolved variables.
 
 ---
 
