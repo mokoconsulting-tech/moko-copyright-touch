@@ -1,38 +1,46 @@
-# moko-copyright-touch — README
+# moko-copyright-touch
 
-## Overview
-`moko-copyright-touch.ps1` is a PowerShell script that recursively scans through a project directory to insert or replace standardized copyright headers in source files.
+**moko-copyright-touch** is a lightweight, configurable script that automatically applies a standardized copyright header to source files. It supports pulling default metadata from a JSON configuration file, overriding parameters via shortcut or CLI arguments, and prompting the user when missing variables are detected.
 
-## Features
-- Supports file types: **php, js, html, md, css, xml**.
-- Automatically chooses the correct comment style for each file type.
-- Replaces any existing top-of-file comment block with the new standardized header.
-- Respects `.gitignore` patterns and skips `.git` folders.
-- Loads configuration defaults from JSON files.
-- Optionally outputs modified files to a separate destination folder.
-- Can persist the selected `StartIn` folder back to a JSON config with `-PersistStartIn`.
+---
 
-## Developer Information
-**Author:** Jonathan Miller  
-**Organization:** Moko Consulting  
-**Email:** hello@mokoconsulting.tech  
-**Phone:** ‪(931) 279-6313
+## 📋 Features
 
-## Configuration
-The script reads parameters from a JSON file in this order:
-1. `-StartIn` parameter from CLI or shortcut.
-2. `moko-copyright-touch.json` in the **project root**.
-3. `moko-copyright-touch.json` in the **script folder**.
+* **Automatic Header Insertion**
+  Adds a GNU GPL (or other configured) copyright header to source files that do not already contain one.
 
-If no JSON file is found in either location, the script prompts for parameters and:
-- Saves them to a new JSON file in the **selected project root**.
-- Also saves them to a JSON file in the **script folder** so future runs without a project JSON can use them as defaults.
+* **JSON-Based Defaults**
+  Loads default values from `moko-copyright-touch.json` in either the script folder (global defaults) or the project folder (project-specific overrides).
 
-### Default JSON Structure
-Below is an example of how a default JSON file should be structured. This can be placed in the **script folder** so it is used as a fallback for all projects when no project-specific JSON is present.
+* **Parameter Fallbacks**
+  Missing project-level variables are automatically inherited from script-level defaults.
+
+* **Interactive Prompting**
+  If no value exists in either file or CLI parameters, the script prompts the user for input.
+
+* **Flexible Configuration**
+  Supports multiple programming languages with appropriate comment styles.
+  Default `@defgroup` tag is `Dolibarr` unless overridden.
+
+* **Shortcut-Friendly**
+  Supports a `StartIn` parameter for running via desktop or terminal shortcuts.
+
+* **Self-Healing Defaults**
+  If no JSON is found on first run, the script will create one with the supplied or prompted defaults.
+
+---
+
+## 📂 Default JSON Structure
+
+Below is an example of how a default JSON file should be structured.
+This can be placed in the **script folder**, so it is used as a fallback for all projects when no project-specific JSON is present, or in the **project folder**, to define parameters for specific projects.
+
+**IT SHOULD ALWAYS HAVE THE NAME `moko-copyright-touch.json`.**
+
 ```json
 {
-  "StartIn": "path/to/your/project",
+  "StartIn": "absolute/path/to/your/project",
+  "Destination": "absolute/path/to/your/destination",
   "Holder": "[Your Name] || [Your Organization]",
   "Email": "your-email@example.com",
   "Phone": "your-phone-number",
@@ -44,31 +52,63 @@ Below is an example of how a default JSON file should be structured. This can be
 }
 ```
 
-## Usage Examples
-Run normally:
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File "./moko-copyright-touch.ps1"
-```
-With a preselected start folder:
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File "./moko-copyright-touch.ps1" -StartIn "D:\\Code\\MyProject"
-```
-Dry-run (no writes, verbose logging):
-```powershell
-pwsh -File ./moko-copyright-touch.ps1 -DryRun -VerboseLog
-```
-Persist StartIn back to project JSON:
-```powershell
-pwsh -File ./moko-copyright-touch.ps1 -PersistStartIn
+---
+
+## 🚀 Usage
+
+**Basic run:**
+
+```bash
+moko-copyright-touch <file-or-directory>
 ```
 
-## How Headers are Formatted
-- **Block style** (`/* ... */`) for PHP, JS, CSS.
-- **HTML/XML comment style** (`<!-- ... -->`) for HTML, XML, MD.
-- Includes copyright line, contact info, project details, and license/warranty disclaimer.
+**Using shortcut defaults:**
 
-## Notes
-- Always uses PowerShell 7+ ternary operators.
-- Requires `System.Windows.Forms` for folder selection dialogs.
-- Writes JSON to both the project root and script folder when prompted for parameters on first run.
-- Uses script-folder JSON as fallback defaults when no project JSON is found.
+* Create a shortcut with the `StartIn` parameter set.
+* The script will auto-load configuration from `moko-copyright-touch.json`.
+
+**Override defaults via CLI:**
+
+```bash
+moko-copyright-touch src/ --ProjectName "NewName" --License "MIT"
+```
+
+---
+
+## 🧠 Behavior & Merge Logic
+
+1. Load project-level `moko-copyright-touch.json` (if present).
+2. Load script-level `moko-copyright-touch.json` (fallback defaults).
+3. Merge: project values override script defaults.
+4. Apply CLI/shortcut overrides last.
+5. For any parameter still missing, prompt the user.
+
+---
+
+## 🔧 Supported File Types & Comment Styles
+
+* **PHP / C / C++ / Java / JS**: block comments `/* ... */` with `*` prefix lines.
+* **Python / Shell / YAML**: line comments with `#`.
+* **HTML / XML**: `<!-- ... -->`.
+* **INI / Properties**: `;` or `#` lines.
+
+> The script detects existing headers and **does not** add duplicates. Any existing top-of-file comment counts as a header and will prevent insertion.
+
+---
+
+## 🛡 License
+
+This project is licensed under the **GNU General Public License v3.0 or later**.
+See the `COPYING` file or [GNU licenses](https://www.gnu.org/licenses/) for more details.
+
+---
+
+## 👤 Developer
+
+**Jonathan Miller**
+📧 [dev@mokoconsulting.tech](mailto:dev@mokoconsulting.tech)
+🌐 [https://mokoconsulting.tech](https://mokoconsulting.tech)
+
+---
+
+*Questions or improvements? Open an issue or propose a PR.*
