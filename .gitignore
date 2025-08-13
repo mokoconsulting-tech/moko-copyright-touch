@@ -65,4 +65,4 @@ sync.ffs_db
 *.old
 
 #Custom Config
-moko-copyright-touch.params.json
+moko-copyright-touch.default.json
