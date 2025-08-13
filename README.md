@@ -1,76 +1,88 @@
+<!--
+Copyright (C) 2025 Jonathan Andrew Miller || Moko Consulting <hello@mokoconsulting.tech>
+
+This file is part of the moko-copyright-touch project.
+
+moko-copyright-touch is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+moko-copyright-touch is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with moko-copyright-touch. If not, see <https://www.gnu.org/licenses/>.
+-->
 # moko-copyright-touch - README.md
 
-**moko-copyright-touch** is a lightweight, configurable script that automatically applies or updates standardized, Doxygen-compatible copyright headers to source files across multiple languages. It supports reading configuration from JSON, overriding via CLI or shortcuts, and prompting for missing values.
+**moko-copyright-touch** is a lightweight, configurable script that automatically applies or updates standardized, **Doxygen-compatible** copyright headers to source files.
+
+---
 
 ## 📋 Features
 
-* **Automatic header insertion and updating** – Inserts a GPL or other configured license header if missing, or updates an existing matching-format header.
-* **Header update detection** – Detects existing headers in a known or matching format and updates them with the latest configuration values.
-* **JSON-based configuration** – Reads defaults from `moko-copyright-touch.params.json` in the project root or script folder.
-* **Parameter fallbacks and prompts** – Project values override script defaults; any missing values are prompted for and saved.
-* **Header templates** – Loads from the `templates/` directory; supports multiple file types and comment styles, including sample JSON structures for special files.
-* **Backup system** – Optionally creates backups before modifying files, with a configurable backup location.
-* **Shortcut and CLI overrides** – Flexible parameter control from desktop shortcuts or direct CLI input.
-* **Self-healing defaults** – Creates a new params file on first run if none is found, populated from prompts or CLI.
-* **Merge logic** – Ensures project-specific settings take precedence, with script-level defaults and CLI parameters layered in.
+* **Automatic header insertion and update**
+  Detects existing headers in a known format and updates them; otherwise inserts a new one.
 
-## 📂 Default JSON Structure
+* **JSON-based defaults**
+  Loads parameters from `moko-copyright-touch.params.json` in the project root (or script folder if missing).
 
-```json
-{
-  "StartIn": "",
-  "Destination": "",
-  "Holder": "",
-  "Email": "",
-  "Phone": "",
-  "Years": "",
-  "License": "",
-  "AdditonalInfo": false,
-  "wordwrap": 40,
-  "IncludeSubdirectories": true,
-  "FileTypes": [".php", ".js", ".css", ".html", ".ini", ".xml"],
-  "IgnorePatterns": [
-    "node_modules",
-    "vendor",
-    "*.min.js",
-    "*.min.css",
-    "*.map",
-    "moko-copyright-touch.params.json",
-    "moko-copyright-touch.headertemplates.json"
-  ],
-  "BackupBeforeModify": true,
-  "BackupLocation": "./.moko-copyright-touch-backups",
-  "HeaderTemplate": "",
-  "DefaultDefGroup": "Dolibarr",
-  "DefaultInGroup": "Template.moko-cassiopeia",
-  "RelativeFilePathInHeader": true,
-  "PromptForMissingValues": true
-}
+* **Parameter fallbacks**
+  Project parameters override script defaults; CLI overrides both.
+
+* **Interactive prompting**
+  Prompts for missing parameters and writes them to the params file.
+
+* **Flexible configuration**
+  Supports multiple programming languages with proper comment styles. Default `@defgroup` is `dolibarr` unless overridden.
+
+* **Header templates**
+  Use `headertemplate` JSON files to define reusable headers for one or multiple file types. Supports grouped targets via comma-separated keys or `apply_to` arrays. Falls back to the `php` template if no match is found.
+
+* **Shortcut-friendly**
+  `startin` can be set for running from shortcuts.
+
+* **Self-healing defaults**
+  If no params file is found, one is created with supplied or prompted defaults.
+
+---
+
+## 📑 Full Documentation
+
+All parameter definitions, placeholder references, and header template rules are located in:
+
+**[DOCUMENTAION.md](./DOCUMENTAION.md)**
+
+---
+
+## 🚀 Usage
+
+**Basic run:**
+
+```bash
+moko-copyright-touch <file-or-directory>
 ```
 
-## Documentation
- [Default Configuration Reference](./DOCUMENTAION.md).
+**With flags:**
 
-## 🧠 Behavior & Merge Logic
+```bash
+moko-copyright-touch <target> --verbose --skip-existing
+```
 
-1. Load project-level `moko-copyright-touch.params.json` (if present).
-2. Load script-level `moko-copyright-touch.params.json` (fallback defaults).
-3. Merge: project values override script defaults.
-4. Apply CLI/shortcut overrides last.
-5. Prompt for any remaining missing parameters and save to the params file.
-6. Apply the selected header template from `templates/`.
-7. If an existing header matches a known format, update it in place rather than inserting a duplicate.
+**Runtime flags:**
 
-## 🔧 Supported File Types
+* `--dry-run` – Show changes without modifying files.
+* `--verbose` – Detailed log output.
+* `--force` – Overwrite existing headers.
+* `--skip-existing` – Skip files with any existing comment header.
 
-* PHP, JS, CSS, HTML, XML, INI, SQL, SH, and more — each with matching comment styles.
+---
 
-## 🛡 License
+## 🛠 License
 
-Licensed under the GNU General Public License v3.0 or later. See [GNU Licenses](https://www.gnu.org/licenses/).
+Licensed under the GNU General Public License v3.0 or later.
 
-## 👤 Developer
-
-**Jonathan Miller**
-📧 [dev@mokoconsulting.tech](mailto:dev@mokoconsulting.tech)
-🌐 [https://mokoconsulting.tech](https://mokoconsulting.tech)
+© 2025 Moko Consulting. All rights reserved.
