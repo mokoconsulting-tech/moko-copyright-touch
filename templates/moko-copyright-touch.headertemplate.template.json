@@ -1,0 +1,75 @@
+/*
+Copyright (C) 2025 Jonathan Andrew Miller || Moko Consulting <hello@mokoconsulting.tech>
+
+This file is part of the moko-copyright-touch project.
+
+moko-copyright-touch is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+moko-copyright-touch is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with moko-copyright-touch. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/*
+ * Description:
+ * moko-copyright-touch.headertemplates.template.json
+ * ------------------------------------------------------------------------
+ * This file defines the per-extension copyright header templates used by
+ * moko-copyright-touch.ps1. It must be present in the same directory as the
+ * script or in a project root for custom overrides.
+ *
+ * File Naming Requirement:
+ *   - The filename must be exactly "moko-copyright-touch.headertemplates.json".
+ *   - Custom project-specific versions must retain this exact name to be detected.
+ *
+ * What to do with this file:
+ *   - Modify or add extension keys to match your project's file types.
+ *   - Adjust the comment style and content array for each extension group.
+ *   - Ensure placeholders match those supported by the script.
+ *   - Keep a backup of any customized version for reuse across projects.
+ *
+ * • Each key is a comma-delimited list of file extensions that share the same
+ *   comment style and header content.
+ * • Header content is a JSON array of lines which may include placeholders
+ *   and will be wrapped using the defined comment syntax.
+ * • Tab characters and sizes can optionally be defined per extension group.
+ *
+ * Placeholders:
+ *   {{Years}}, {{Holder}}, {{Email}}, {{Phone}}, {{License}}, {{DefGroup}},
+ *   {{Brief}}, {{FileName}}, {{InGroup}}, {{Description}}, {{AdditionalInfo}}
+ *
+ * Special TAB placeholders in content lines:
+ *   {{TAB}}  -> one indentation unit (tab_char or tab_size spaces)
+ *   {{TAB2}} -> two indentation units
+ *   {{TAB4}} -> four indentation units
+ *
+ * More info:
+ *   https://github.com/mokoconsulting-tech/moko-copyright-touch/blob/main/DOCUMENTATION.md
+ */
+{
+  "php,phtml": {
+    "comment_style": "block",
+    "block_start": "/*",
+    "block_line_prefix": " * ",
+    "block_end": " */",
+    "content": [
+      "Copyright (C) {{Years}} {{Holder}} <{{Email}}> | {{Phone}}",
+      "SPDX-License-Identifier: {{License}}",
+      "",
+      "@defgroup {{DefGroup}}",
+      "@brief {{Brief}}",
+      "@file {{FileName}}",
+      "@ingroup {{InGroup}}",
+      "{{Description}}",
+      "",
+      "{{AdditionalInfo}}"
+    ]
+  }
+}

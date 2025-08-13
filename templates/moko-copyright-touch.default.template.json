@@ -1,0 +1,63 @@
+/*
+ * moko-copyright-touch.default.json - Default Configuration
+ * ---------------------------------------------------------
+ * This file defines the parameters for the moko-copyright-touch script.
+ * If a project-specific JSON is missing any parameters, these values will be used.
+ *
+ * Parameter Details:
+ *   StartIn                  - Absolute path to project root. No default. Must be set.
+ *   Destination              - Where to save modified files. Defaults to StartIn if empty.
+ *   Holder                   - Copyright holder name. Default: empty.
+ *   Email                    - Contact email. Default: empty.
+ *   Phone                    - Contact phone number. Default: empty.
+ *   Years                    - Year or range. Default: current year.
+ *   License                  - SPDX license ID. Default: "GPL-3.0-or-later".
+ *   AdditonalInfo            - Extra warranty/disclaimer text. Boolean or string. Default: false.
+ *   wordwrap                 - Number of characters before wrapping text in headers. Default: 40.
+ *   IncludeSubdirectories    - Scan subfolders. Default: true.
+ *   FileTypes                - Extensions to scan. Default: PHP, JS, CSS, HTML, INI, XML.
+ *   IgnorePatterns           - Ignore list. Default includes node_modules, vendor, minified files, and this JSON.
+ *   BackupBeforeModify       - Backup before changes. Default: true.
+ *   BackupLocation           - Backup folder path. Default: "./.moko-copyright-touch-backups".
+ *   HeaderTemplate           - Path to custom header template. Default: empty (uses built-in).
+ *   DefaultDefGroup          - Default @defgroup in docblocks. Default: "Dolibarr".
+ *   DefaultInGroup           - Default @ingroup in docblocks. Default: "Template.moko-cassiopeia".
+ *   RelativeFilePathInHeader - Include relative file path in header. Default: true.
+ *   PromptForMissingValues   - Ask user for missiang values. Default: true.
+ */
+{
+  "StartIn": "",
+  "Destination": "",
+  "Holder": "",
+  "Email": "",
+  "Phone": "",
+  "Years": "",
+  "License": "",
+  "AdditonalInfo": false,
+  "wordwrap": 80,
+  "IncludeSubdirectories": true,
+  "FileTypes": [
+    ".php",
+    ".js",
+    ".css",
+    ".html",
+    ".ini",
+    ".xml"
+  ],
+  "IgnorePatterns": [
+    "node_modules",
+    "vendor",
+    "*.min.js",
+    "*.min.css",
+    "*.map",
+    "moko-copyright-touch.params.json",
+    "moko-copyright-touch.headertemplates.json"
+  ],
+  "BackupBeforeModify": true,
+  "BackupLocation": "./.moko-copyright-touch-backups",
+  "HeaderTemplate": "",
+  "DefaultDefGroup": "Dolibarr",
+  "DefaultInGroup": "Template.moko-cassiopeia",
+  "RelativeFilePathInHeader": true,
+  "PromptForMissingValues": true
+}

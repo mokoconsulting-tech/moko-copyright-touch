@@ -1,0 +1,85 @@
+/*
+Copyright (C) 2025 Jonathan Andrew Miller || Moko Consulting <hello@mokoconsulting.tech>
+
+This file is part of the moko-copyright-touch project.
+
+moko-copyright-touch is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+moko-copyright-touch is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with moko-copyright-touch. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+/*
+ * Description:
+ *   Copy this file to "moko-copyright-touch.params.json" at your project root,
+ *   then fill in the fields below. Any missing values are resolved in this order:
+ *   CLI > project params > script defaults > prompt.
+ *
+ *   All string values should be JSON-encoded. Paths are relative to this file unless specified otherwise.
+ *   Use forward slashes for portability (e.g., "./output" or "../shared/templates").
+ *   For Windows compatibility, you may also use double backslashes in JSON strings (e.g., "..\\shared\\templates").
+ *   Encode newlines as \\n within strings if needed.
+ *
+ * Key fields:
+ *   StartIn                Relative path to the project root (required).
+ *   Destination            If empty, files are modified in place; otherwise, relative destination folder for outputs.
+ *   Holder / Email / Phone Your contact info used in generated headers.
+ *   Years                  Year or range; leave empty to use the current year.
+ *   License                SPDX identifier (e.g., GPL-3.0-or-later).
+ *   DefGroup               Doxygen group name for @defgroup (default: Dolibarr).
+ *   InGroup                Doxygen @ingroup tag value.
+ *   Brief / Description    Short/long texts used by header templates.
+ *   wordwrap               Soft wrap width for header text (default: 80).
+ *   IncludeSubdirectories  Recursively scan subfolders.
+ *   FileTypes              File extensions to process.
+ *   IgnorePatterns         Glob-like paths to skip.
+ *   IncludePatterns        Optional allow-list; processed before IgnorePatterns.
+ *   HeaderTemplateFile     Relative path to the header template JSON.
+ *
+ * Notes:
+ *   If StartIn is empty, script must abort with an error.
+ *   If Destination is empty, overwrite mode is assumed.
+ *   FileTypes array must contain at least one extension, otherwise script exits.
+ *   IgnorePatterns and IncludePatterns are applied in order, IncludePatterns first.
+ *   Relative paths are resolved based on the location of the project params file.
+ *   Newline escapes (\\n) in Brief and Description are converted to real line breaks at runtime.
+ *   On Windows, ensure backslashes are escaped in JSON ("C:\\Projects\\Example").
+ *
+ * More info:
+ *   https://github.com/mokoconsulting-tech/moko-copyright-touch/blob/main/DOCUMENTATION.md
+ */
+{
+  "StartIn": "./",
+  "Destination": "./output",
+  "Holder": "",
+  "Email": "",
+  "Phone": "",
+  "Years": "",
+  "License": "",
+  "DefGroup": "",
+  "InGroup": "",
+  "Brief": "Example brief with newline: First line.\\nSecond line.",
+  "Description": "",
+  "AdditonalInfo": "",
+  "wordwrap": 80,
+  "IncludeSubdirectories": true,
+  "FileTypes": [
+    "php", "js", "ts", "css", "scss", "sass", "html", "htm",
+    "ini", "xml", "json", "md", "yml", "yaml", "sh", "ps1",
+    "py", "rb", "go", "java", "c", "cpp", "cs", "vue", "tsx"
+  ],
+  "IgnorePatterns": [
+    "vendor/", "node_modules/", ".git/", "build/", "dist/", "cache/",
+    "coverage/", "*.min.js", "*.min.css", ".*/"
+  ],
+  "IncludePatterns": [],
+  "HeaderTemplateFile": "./moko-copyright-touch.headertemplate.json"
+}
